@@ -22,11 +22,24 @@ class LabeledTreeTest {
 
     @Test
     fun `empty tree`() {
-        val actual = LabeledTree()
+        val tree = LabeledTree()
 
         assertEquals(
-            LabeledTreeNode(),
-            actual.root
+            root(),
+            tree.root
+        )
+    }
+
+    @Test
+    fun `single child`() {
+        val tree = LabeledTree()
+        tree.add("child1")
+
+        assertEquals(
+            root {
+                node("child1")
+            },
+            tree.root
         )
     }
 

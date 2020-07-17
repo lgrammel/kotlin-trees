@@ -19,4 +19,16 @@ class LabeledTree {
 
     val root: LabeledTreeNode = LabeledTreeNode()
 
+    fun add(name: String) {
+        root.add(name)
+    }
+
+}
+
+fun root(initialize: (LabeledTreeNode.() -> Unit)? = null): LabeledTreeNode {
+    val root = LabeledTreeNode()
+    if (initialize != null) {
+        root.initialize()
+    }
+    return root
 }
