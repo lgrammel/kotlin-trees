@@ -1,21 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-
-    base
-
-    val kotlinVersion = "1.3.72"
-    kotlin("jvm") version kotlinVersion
-    kotlin("plugin.serialization") version kotlinVersion
-
+    kotlin("jvm") version "1.3.72"
 }
 
 repositories {
     mavenCentral()
-    jcenter()
 }
-
-apply(plugin = "kotlin")
 
 dependencies {
 
@@ -23,23 +14,13 @@ dependencies {
     implementation(kotlin("stdlib"))
 
     // JUnit testing library
-    val junitVersion = "5.3.1"
+    val junitVersion = "5.4.2"
     testImplementation("org.junit.jupiter", "junit-jupiter-api", junitVersion)
     testRuntimeOnly("org.junit.jupiter", "junit-jupiter-engine", junitVersion)
 }
 
-buildscript {
-
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath(kotlin("gradle-plugin", version = "1.3.72"))
-    }
-}
-
 tasks.test {
+    useJUnitPlatform {}
     testLogging {
         events("passed", "skipped", "failed")
     }
