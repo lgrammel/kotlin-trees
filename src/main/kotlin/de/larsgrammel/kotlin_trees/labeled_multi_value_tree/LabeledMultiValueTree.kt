@@ -15,19 +15,19 @@
  */
 package de.larsgrammel.kotlin_trees.labeled_multi_value_tree
 
-class LabeledTree {
+class LabeledTree<T> {
 
-    val root: LabeledMultiValueTreeNode = LabeledMultiValueTreeNode()
+    val root: LabeledMultiValueTreeNode<T> = LabeledMultiValueTreeNode<T>()
 
     fun add(
         name: String,
-        value: Any? = null
-    ): LabeledMultiValueTreeNode = root.add(name, value)
+        value: T? = null
+    ): LabeledMultiValueTreeNode<T> = root.add(name, value)
 
 }
 
-fun root(initialize: (LabeledMultiValueTreeNode.() -> Unit)? = null): LabeledMultiValueTreeNode {
-    val root = LabeledMultiValueTreeNode()
+fun <T> root(initialize: (LabeledMultiValueTreeNode<T>.() -> Unit)? = null): LabeledMultiValueTreeNode<T> {
+    val root = LabeledMultiValueTreeNode<T>()
     if (initialize != null) {
         root.initialize()
     }

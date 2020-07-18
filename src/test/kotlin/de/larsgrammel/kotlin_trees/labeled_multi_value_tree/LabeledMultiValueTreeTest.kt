@@ -24,21 +24,21 @@ class LabeledMultiValueTreeTest {
 
     @Test
     fun `structure - empty tree`() {
-        val tree = LabeledTree()
+        val tree = LabeledTree<String>()
 
         assertEquals(
-            root(),
+            root<String>(),
             tree.root
         )
     }
 
     @Test
     fun `structure - single child`() {
-        val tree = LabeledTree()
+        val tree = LabeledTree<String>()
         tree.add("child1")
 
         assertEquals(
-            root {
+            root<String> {
                 node("child1")
             },
             tree.root
@@ -47,11 +47,11 @@ class LabeledMultiValueTreeTest {
 
     @Test
     fun `structure - single child with value`() {
-        val tree = LabeledTree()
+        val tree = LabeledTree<String>()
         tree.add("child1", value(0))
 
         assertEquals(
-            root {
+            root<String> {
                 node("child1", value(0))
             },
             tree.root
@@ -60,12 +60,12 @@ class LabeledMultiValueTreeTest {
 
     @Test
     fun `structure - child with child`() {
-        val tree = LabeledTree()
+        val tree = LabeledTree<String>()
         val child = tree.add("child1")
         child.add("child2")
 
         assertEquals(
-            root {
+            root<String> {
                 node("child1") {
                     node("child2")
                 }
@@ -76,7 +76,7 @@ class LabeledMultiValueTreeTest {
 
     @Test
     fun `isLeaf - empty tree`() {
-        val tree = LabeledTree()
+        val tree = LabeledTree<String>()
 
         assertEquals(
             true,
@@ -86,7 +86,7 @@ class LabeledMultiValueTreeTest {
 
     @Test
     fun `isLeaf - single child`() {
-        val tree = LabeledTree()
+        val tree = LabeledTree<String>()
         val child = tree.add("child1")
 
         assertEquals(
@@ -101,7 +101,7 @@ class LabeledMultiValueTreeTest {
 
     @Test
     fun `isLeaf - child with child`() {
-        val tree = LabeledTree()
+        val tree = LabeledTree<String>()
         val child = tree.add("child1")
         val child2 = child.add("child2")
 
@@ -117,7 +117,7 @@ class LabeledMultiValueTreeTest {
 
     @Test
     fun `directLeafValues - root with 2 children`() {
-        val tree = LabeledTree()
+        val tree = LabeledTree<String>()
         tree.add("child1", value(0))
         tree.add("child2", value(1))
 

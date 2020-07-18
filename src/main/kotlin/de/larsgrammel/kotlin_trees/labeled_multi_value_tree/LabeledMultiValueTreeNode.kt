@@ -15,33 +15,33 @@
  */
 package de.larsgrammel.kotlin_trees.labeled_multi_value_tree
 
-class LabeledMultiValueTreeNode(val value: Any? = null) {
+class LabeledMultiValueTreeNode<T>(val value: T? = null) {
 
-    val directLeafValues: Any?
+    val directLeafValues: List<T>?
         get() = if (isLeaf) null else
             children!!
-                .filter { it.value.isLeaf }
-                .map { it.value.value }
+                .filter { it.value.isLeaf && it.value.value != null }
+                .map { it.value.value!! }
 
     val isLeaf: Boolean
         get() = children == null
 
-    private var children: MutableMap<String, LabeledMultiValueTreeNode>? = null
+    private var children: MutableMap<String, LabeledMultiValueTreeNode<T>>? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false
         if (other::class != this::class) return false
 
-        val otherNode = other as LabeledMultiValueTreeNode
+        val otherNode = other as LabeledMultiValueTreeNode<*>
 
         return otherNode.value == this.value
     }
 
     fun node(
         name: String,
-        value: Any? = null,
-        initialize: (LabeledMultiValueTreeNode.() -> Unit)? = null
+        value: T? = null,
+        initialize: (LabeledMultiValueTreeNode<T>.() -> Unit)? = null
     ) {
         val child = add(name, value)
         if (initialize != null) {
@@ -51,8 +51,8 @@ class LabeledMultiValueTreeNode(val value: Any? = null) {
 
     fun add(
         name: String,
-        value: Any? = null
-    ): LabeledMultiValueTreeNode {
+        value: T? = null
+    ): LabeledMultiValueTreeNode<T> {
         val child = LabeledMultiValueTreeNode(value)
 
         if (children == null) {
