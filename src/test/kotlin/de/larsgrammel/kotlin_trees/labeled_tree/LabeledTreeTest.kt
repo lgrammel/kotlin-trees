@@ -44,6 +44,47 @@ class LabeledTreeTest {
     }
 
     @Test
+    fun `isLeaf - empty tree`() {
+        val tree = LabeledTree()
+
+        assertEquals(
+            true,
+            tree.root.isLeaf
+        )
+    }
+
+    @Test
+    fun `isLeaf - single child`() {
+        val tree = LabeledTree()
+        val child = tree.add("child1")
+
+        assertEquals(
+            false,
+            tree.root.isLeaf
+        )
+        assertEquals(
+            true,
+            child.isLeaf
+        )
+    }
+
+    @Test
+    fun `isLeaf child with child`() {
+        val tree = LabeledTree()
+        val child = tree.add("child1")
+        val child2 = child.add("child2")
+
+        assertEquals(
+            false,
+            child.isLeaf
+        )
+        assertEquals(
+            true,
+            child2.isLeaf
+        )
+    }
+
+    @Test
     fun `single child with value`() {
         val tree = LabeledTree()
         val value = object : Any() {}
