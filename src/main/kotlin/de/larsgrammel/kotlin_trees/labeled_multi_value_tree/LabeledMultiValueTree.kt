@@ -17,7 +17,7 @@ package de.larsgrammel.kotlin_trees.labeled_multi_value_tree
 
 import de.larsgrammel.kotlin_trees.TreeWalker
 
-class LabeledTree<T> {
+class LabeledMultiValueTree<T> {
 
     val root: LabeledMultiValueTreeNode<T> = LabeledMultiValueTreeNode("")
 
@@ -31,7 +31,7 @@ class LabeledTree<T> {
         if (other == null) return false
         if (other::class != this::class) return false
 
-        val otherNode = other as LabeledTree<*>
+        val otherNode = other as LabeledMultiValueTree<*>
 
         return otherNode.root == this.root
     }
@@ -42,8 +42,8 @@ class LabeledTree<T> {
 
 }
 
-fun <T> tree(initialize: (LabeledMultiValueTreeNode<T>.() -> Unit)? = null): LabeledTree<T> {
-    val tree = LabeledTree<T>()
+fun <T> tree(initialize: (LabeledMultiValueTreeNode<T>.() -> Unit)? = null): LabeledMultiValueTree<T> {
+    val tree = LabeledMultiValueTree<T>()
     if (initialize != null) {
         tree.root.initialize()
     }
