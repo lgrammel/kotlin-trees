@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.larsgrammel.kotlin_trees.labeled_tree
+package de.larsgrammel.kotlin_trees.labeled_multi_value_tree
 
-class LabeledTreeNode(val value: Any? = null) {
+class LabeledMultiValueTreeNode(val value: Any? = null) {
 
     val isLeaf: Boolean
         get() = children == null
 
-    private var children : MutableMap<String, LabeledTreeNode>? = null
+    private var children : MutableMap<String, LabeledMultiValueTreeNode>? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false
         if (other::class != this::class) return false
 
-        val otherNode = other as LabeledTreeNode
+        val otherNode = other as LabeledMultiValueTreeNode
 
         return otherNode.value == this.value
     }
@@ -35,7 +35,7 @@ class LabeledTreeNode(val value: Any? = null) {
     fun node(
         name: String,
         value: Any? = null,
-        initialize: (LabeledTreeNode.() -> Unit)? = null
+        initialize: (LabeledMultiValueTreeNode.() -> Unit)? = null
     ) {
         val child = add(name, value)
         if (initialize != null) {
@@ -46,8 +46,8 @@ class LabeledTreeNode(val value: Any? = null) {
     fun add(
         name: String,
         value: Any? = null
-    ): LabeledTreeNode {
-        val child = LabeledTreeNode(value)
+    ): LabeledMultiValueTreeNode {
+        val child = LabeledMultiValueTreeNode(value)
 
         if (children == null) {
             children = mutableMapOf()

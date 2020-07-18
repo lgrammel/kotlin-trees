@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.larsgrammel.kotlin_trees.labeled_tree
+package de.larsgrammel.kotlin_trees.labeled_multi_value_tree
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class LabeledTreeTest {
+class LabeledMultiValueTreeTest {
 
     @Test
     fun `empty tree`() {

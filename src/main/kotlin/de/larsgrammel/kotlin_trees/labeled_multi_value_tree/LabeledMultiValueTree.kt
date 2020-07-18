@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.larsgrammel.kotlin_trees.labeled_tree
+package de.larsgrammel.kotlin_trees.labeled_multi_value_tree
 
 class LabeledTree {
 
-    val root: LabeledTreeNode = LabeledTreeNode()
+    val root: LabeledMultiValueTreeNode = LabeledMultiValueTreeNode()
 
     fun add(
         name: String,
         value: Any? = null
-    ): LabeledTreeNode = root.add(name, value)
+    ): LabeledMultiValueTreeNode = root.add(name, value)
 
 }
 
-fun root(initialize: (LabeledTreeNode.() -> Unit)? = null): LabeledTreeNode {
-    val root = LabeledTreeNode()
+fun root(initialize: (LabeledMultiValueTreeNode.() -> Unit)? = null): LabeledMultiValueTreeNode {
+    val root = LabeledMultiValueTreeNode()
     if (initialize != null) {
         root.initialize()
     }
