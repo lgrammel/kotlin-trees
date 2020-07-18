@@ -19,7 +19,10 @@ class LabeledTree {
 
     val root: LabeledTreeNode = LabeledTreeNode()
 
-    fun add(name: String): LabeledTreeNode = root.add(name)
+    fun add(
+        name: String,
+        value: Any? = null
+    ): LabeledTreeNode = root.add(name, value)
 
 }
 

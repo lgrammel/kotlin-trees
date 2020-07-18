@@ -15,25 +15,36 @@
  */
 package de.larsgrammel.kotlin_trees.labeled_tree
 
-class LabeledTreeNode {
+class LabeledTreeNode(val value: Any? = null) {
 
     private val children = mutableMapOf<String, LabeledTreeNode>()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false
-        return other::class == this::class
+        if (other::class != this::class) return false
+
+        val otherNode = other as LabeledTreeNode
+
+        return otherNode.value == this.value
     }
 
-    fun node(name: String, initialize: (LabeledTreeNode.() -> Unit)? = null) {
-        val child = add(name)
+    fun node(
+        name: String,
+        value: Any? = null,
+        initialize: (LabeledTreeNode.() -> Unit)? = null
+    ) {
+        val child = add(name, value)
         if (initialize != null) {
             child.initialize()
         }
     }
 
-    fun add(name: String): LabeledTreeNode {
-        val child = LabeledTreeNode()
+    fun add(
+        name: String,
+        value: Any? = null
+    ): LabeledTreeNode {
+        val child = LabeledTreeNode(value)
         children[name] = child
         return child
     }

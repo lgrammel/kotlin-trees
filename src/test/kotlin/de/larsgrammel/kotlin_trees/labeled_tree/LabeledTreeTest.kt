@@ -44,6 +44,20 @@ class LabeledTreeTest {
     }
 
     @Test
+    fun `single child with value`() {
+        val tree = LabeledTree()
+        val value = object : Any() {}
+        tree.add("child1", value)
+
+        assertEquals(
+            root {
+                node("child1", value)
+            },
+            tree.root
+        )
+    }
+
+    @Test
     fun `child with child`() {
         val tree = LabeledTree()
         val child = tree.add("child1")
