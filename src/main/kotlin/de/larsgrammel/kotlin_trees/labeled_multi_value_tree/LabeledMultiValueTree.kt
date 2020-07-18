@@ -26,16 +26,26 @@ class LabeledTree<T> {
         value: T? = null
     ): LabeledMultiValueTreeNode<T> = root.add(name, value)
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null) return false
+        if (other::class != this::class) return false
+
+        val otherNode = other as LabeledTree<*>
+
+        return otherNode.root == this.root
+    }
+
     fun walk(treeWalker: TreeWalker<LabeledMultiValueTreeNode<T>>) {
         root.walk(treeWalker)
     }
 
 }
 
-fun <T> root(initialize: (LabeledMultiValueTreeNode<T>.() -> Unit)? = null): LabeledMultiValueTreeNode<T> {
-    val root = LabeledMultiValueTreeNode<T>("")
+fun <T> tree(initialize: (LabeledMultiValueTreeNode<T>.() -> Unit)? = null): LabeledTree<T> {
+    val tree = LabeledTree<T>()
     if (initialize != null) {
-        root.initialize()
+        tree.root.initialize()
     }
-    return root
+    return tree
 }

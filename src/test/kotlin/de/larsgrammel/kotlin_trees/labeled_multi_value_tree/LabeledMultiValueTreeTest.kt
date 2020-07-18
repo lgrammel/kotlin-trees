@@ -28,8 +28,8 @@ class LabeledMultiValueTreeTest {
         val tree = LabeledTree<String>()
 
         assertEquals(
-            root<String>(),
-            tree.root
+            tree<String>(),
+            tree
         )
     }
 
@@ -39,10 +39,10 @@ class LabeledMultiValueTreeTest {
         tree.add("child1")
 
         assertEquals(
-            root<String> {
+            tree<String> {
                 node("child1")
             },
-            tree.root
+            tree
         )
     }
 
@@ -52,10 +52,10 @@ class LabeledMultiValueTreeTest {
         tree.add("child1", value(0))
 
         assertEquals(
-            root<String> {
+            tree<String> {
                 node("child1", value(0))
             },
-            tree.root
+            tree
         )
     }
 
@@ -66,12 +66,12 @@ class LabeledMultiValueTreeTest {
         child.add("child2")
 
         assertEquals(
-            root<String> {
+            tree<String> {
                 node("child1") {
                     node("child2")
                 }
             },
-            tree.root
+            tree
         )
     }
 
