@@ -15,7 +15,9 @@
  */
 package de.larsgrammel.kotlin_trees.labeled_multi_value_tree
 
-class LabeledMultiValueTreeNode<T>(val value: T? = null) {
+import de.larsgrammel.kotlin_trees.TreeWalker
+
+class LabeledMultiValueTreeNode<T>(val name: String, val value: T? = null) {
 
     val directLeafValues: List<T>?
         get() = if (isLeaf) null else
@@ -53,7 +55,7 @@ class LabeledMultiValueTreeNode<T>(val value: T? = null) {
         name: String,
         value: T? = null
     ): LabeledMultiValueTreeNode<T> {
-        val child = LabeledMultiValueTreeNode(value)
+        val child = LabeledMultiValueTreeNode(name, value)
 
         if (children == null) {
             children = mutableMapOf()
@@ -63,5 +65,15 @@ class LabeledMultiValueTreeNode<T>(val value: T? = null) {
 
         return child
     }
+
+    fun walk(treeWalker: TreeWalker<LabeledMultiValueTreeNode<T>>) {
+        treeWalker.visitBeforeChildren(this)
+        if (children != null) {
+            children!!.forEach { it.value.walk(treeWalker) }
+        }
+        treeWalker.visitAfterChildren(this)
+    }
+
+    override fun toString(): String = "\"$name\""
 
 }

@@ -15,6 +15,7 @@
  */
 package de.larsgrammel.kotlin_trees.labeled_multi_value_tree
 
+import de.larsgrammel.kotlin_trees.TreeWalker
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -125,6 +126,41 @@ class LabeledMultiValueTreeTest {
             listOf(value(0), value(1)),
             tree.root.directLeafValues
         )
+    }
+
+    @Test
+    fun `walk tree`() {
+        val tree = LabeledTree<String>()
+        val child = tree.add("child1")
+        val child2 = child.add("child2")
+        val child3 = child.add("child3")
+
+        val visitedNodes = mutableListOf<Pair<String, LabeledMultiValueTreeNode<String>>>()
+
+        tree.walk(object : TreeWalker<LabeledMultiValueTreeNode<String>> {
+            override fun visitBeforeChildren(node: LabeledMultiValueTreeNode<String>) {
+                visitedNodes.add("before" to node)
+            }
+
+            override fun visitAfterChildren(node: LabeledMultiValueTreeNode<String>) {
+                visitedNodes.add("after" to node)
+            }
+        })
+
+        assertEquals(
+            listOf(
+                "before" to tree.root,
+                "before" to child,
+                "before" to child2,
+                "after" to child2,
+                "before" to child3,
+                "after" to child3,
+                "after" to child,
+                "after" to tree.root
+            ),
+            visitedNodes
+        )
+
     }
 
 }

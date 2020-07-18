@@ -15,19 +15,25 @@
  */
 package de.larsgrammel.kotlin_trees.labeled_multi_value_tree
 
+import de.larsgrammel.kotlin_trees.TreeWalker
+
 class LabeledTree<T> {
 
-    val root: LabeledMultiValueTreeNode<T> = LabeledMultiValueTreeNode<T>()
+    val root: LabeledMultiValueTreeNode<T> = LabeledMultiValueTreeNode("")
 
     fun add(
         name: String,
         value: T? = null
     ): LabeledMultiValueTreeNode<T> = root.add(name, value)
 
+    fun walk(treeWalker: TreeWalker<LabeledMultiValueTreeNode<T>>) {
+        root.walk(treeWalker)
+    }
+
 }
 
 fun <T> root(initialize: (LabeledMultiValueTreeNode<T>.() -> Unit)? = null): LabeledMultiValueTreeNode<T> {
-    val root = LabeledMultiValueTreeNode<T>()
+    val root = LabeledMultiValueTreeNode<T>("")
     if (initialize != null) {
         root.initialize()
     }
