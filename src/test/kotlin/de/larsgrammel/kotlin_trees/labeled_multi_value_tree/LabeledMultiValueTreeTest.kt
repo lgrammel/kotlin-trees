@@ -20,8 +20,10 @@ import org.junit.jupiter.api.Test
 
 class LabeledMultiValueTreeTest {
 
+    private fun value(n: Int) = "value-$n"
+
     @Test
-    fun `empty tree`() {
+    fun `structure - empty tree`() {
         val tree = LabeledTree()
 
         assertEquals(
@@ -31,13 +33,42 @@ class LabeledMultiValueTreeTest {
     }
 
     @Test
-    fun `single child`() {
+    fun `structure - single child`() {
         val tree = LabeledTree()
         tree.add("child1")
 
         assertEquals(
             root {
                 node("child1")
+            },
+            tree.root
+        )
+    }
+
+    @Test
+    fun `structure - single child with value`() {
+        val tree = LabeledTree()
+        tree.add("child1", value(0))
+
+        assertEquals(
+            root {
+                node("child1", value(0))
+            },
+            tree.root
+        )
+    }
+
+    @Test
+    fun `structure - child with child`() {
+        val tree = LabeledTree()
+        val child = tree.add("child1")
+        child.add("child2")
+
+        assertEquals(
+            root {
+                node("child1") {
+                    node("child2")
+                }
             },
             tree.root
         )
@@ -69,7 +100,7 @@ class LabeledMultiValueTreeTest {
     }
 
     @Test
-    fun `isLeaf child with child`() {
+    fun `isLeaf - child with child`() {
         val tree = LabeledTree()
         val child = tree.add("child1")
         val child2 = child.add("child2")
@@ -81,36 +112,6 @@ class LabeledMultiValueTreeTest {
         assertEquals(
             true,
             child2.isLeaf
-        )
-    }
-
-    @Test
-    fun `single child with value`() {
-        val tree = LabeledTree()
-        val value = object : Any() {}
-        tree.add("child1", value)
-
-        assertEquals(
-            root {
-                node("child1", value)
-            },
-            tree.root
-        )
-    }
-
-    @Test
-    fun `child with child`() {
-        val tree = LabeledTree()
-        val child = tree.add("child1")
-        child.add("child2")
-
-        assertEquals(
-            root {
-                node("child1") {
-                    node("child2")
-                }
-            },
-            tree.root
         )
     }
 
