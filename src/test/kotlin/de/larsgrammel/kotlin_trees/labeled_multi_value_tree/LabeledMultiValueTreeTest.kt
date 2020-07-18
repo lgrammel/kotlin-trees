@@ -115,4 +115,16 @@ class LabeledMultiValueTreeTest {
         )
     }
 
+    @Test
+    fun `directLeafValues - root with 2 children`() {
+        val tree = LabeledTree()
+        tree.add("child1", value(0))
+        tree.add("child2", value(1))
+
+        assertEquals(
+            listOf(value(0), value(1)),
+            tree.root.directLeafValues
+        )
+    }
+
 }

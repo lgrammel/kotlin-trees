@@ -17,10 +17,16 @@ package de.larsgrammel.kotlin_trees.labeled_multi_value_tree
 
 class LabeledMultiValueTreeNode(val value: Any? = null) {
 
+    val directLeafValues: Any?
+        get() = if (isLeaf) null else
+            children!!
+                .filter { it.value.isLeaf }
+                .map { it.value.value }
+
     val isLeaf: Boolean
         get() = children == null
 
-    private var children : MutableMap<String, LabeledMultiValueTreeNode>? = null
+    private var children: MutableMap<String, LabeledMultiValueTreeNode>? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
