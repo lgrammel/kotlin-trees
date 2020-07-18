@@ -43,4 +43,20 @@ class LabeledTreeTest {
         )
     }
 
+    @Test
+    fun `child with child`() {
+        val tree = LabeledTree()
+        val child = tree.add("child1")
+        child.add("child2")
+
+        assertEquals(
+            root {
+                node("child1") {
+                    node("child2")
+                }
+            },
+            tree.root
+        )
+    }
+
 }
