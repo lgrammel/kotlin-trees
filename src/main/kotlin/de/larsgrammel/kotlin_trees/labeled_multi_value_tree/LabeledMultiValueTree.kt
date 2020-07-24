@@ -45,6 +45,8 @@ class LabeledMultiValueTree<T> {
         root.walk(treeWalker)
     }
 
+    override fun toString(): String = root.toString()
+
 }
 
 fun <T> tree(initialize: (LabeledMultiValueTreeNode<T>.() -> Unit)? = null): LabeledMultiValueTree<T> {

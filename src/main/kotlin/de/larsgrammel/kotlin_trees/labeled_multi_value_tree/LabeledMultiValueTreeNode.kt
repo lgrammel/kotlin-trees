@@ -37,7 +37,7 @@ class LabeledMultiValueTreeNode<T>(val name: String, val value: T? = null) {
 
         val otherNode = other as LabeledMultiValueTreeNode<*>
 
-        return otherNode.value == this.value
+        return (otherNode.value == this.value) && (otherNode.children == this.children)
     }
 
     fun node(
@@ -54,13 +54,27 @@ class LabeledMultiValueTreeNode<T>(val name: String, val value: T? = null) {
     fun add(
         path: List<String>,
         value: T? = null
-    ): LabeledMultiValueTreeNode<T> =
-        if (path.size == 1) {
-            add(path.first(), value)
+    ): LabeledMultiValueTreeNode<T> {
+        val directChildName = path.first()
+        return if (path.size == 1) {
+            add(directChildName, value)
         } else {
-            val child = add(path.first(), null)
-            child.add(path.drop(1), value)
+            val child = if (!has(directChildName)) {
+                add(directChildName, null)
+            } else {
+                get(directChildName)
+            }
+            child!!.add(path.drop(1), value)
         }
+    }
+
+    fun has(
+        name: String
+    ): Boolean = (children != null) && (children!!.containsKey(name))
+
+    fun get(
+        name: String
+    ): LabeledMultiValueTreeNode<T>? = this.children?.get(name)
 
     fun add(
         name: String,
@@ -85,6 +99,6 @@ class LabeledMultiValueTreeNode<T>(val name: String, val value: T? = null) {
         treeWalker.visitAfterChildren(this)
     }
 
-    override fun toString(): String = "\"$name\""
+    override fun toString(): String = "\"$name\" ${children.toString()}"
 
 }

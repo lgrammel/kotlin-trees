@@ -76,7 +76,7 @@ class LabeledMultiValueTreeTest {
     }
 
     @Test
-    fun `create with splitter - child with child`() {
+    fun `create with add many - child with child`() {
         val tree = LabeledMultiValueTree<String>()
         tree.add(listOf("child1", "child2"))
 
@@ -84,6 +84,48 @@ class LabeledMultiValueTreeTest {
             tree<String> {
                 node("child1") {
                     node("child2")
+                }
+            },
+            tree
+        )
+    }
+
+    @Test
+    fun `create with add many - child with 2 children`() {
+        val tree = LabeledMultiValueTree<String>()
+        tree.add(listOf("child1", "child2"))
+        tree.add(listOf("child1", "child3"))
+
+        assertEquals(
+            tree<String> {
+                node("child1") {
+                    node("child2")
+                    node("child3")
+                }
+            },
+            tree
+        )
+    }
+
+    @Test
+    fun `create with add many - 3 layers with multiple children`() {
+        val tree = LabeledMultiValueTree<String>()
+        tree.add(listOf("child1a", "child2a", "child3a"))
+        tree.add(listOf("child1a", "child2a", "child3b"))
+        tree.add(listOf("child1a", "child2b", "child3c"))
+        tree.add(listOf("child1a", "child2b", "child3d"))
+
+        assertEquals(
+            tree<String> {
+                node("child1a") {
+                    node("child2a") {
+                        node("child3a")
+                        node("child3b")
+                    }
+                    node("child2b") {
+                        node("child3c")
+                        node("child3d")
+                    }
                 }
             },
             tree
