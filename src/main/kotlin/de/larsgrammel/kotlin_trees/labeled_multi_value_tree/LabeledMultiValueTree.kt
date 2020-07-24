@@ -26,6 +26,11 @@ class LabeledMultiValueTree<T> {
         value: T? = null
     ): LabeledMultiValueTreeNode<T> = root.add(name, value)
 
+    fun add(
+        path: List<String>,
+        value: T? = null
+    ): LabeledMultiValueTreeNode<T> = root.add(path, value)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

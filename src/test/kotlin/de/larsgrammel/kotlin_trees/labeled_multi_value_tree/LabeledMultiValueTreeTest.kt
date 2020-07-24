@@ -76,6 +76,21 @@ class LabeledMultiValueTreeTest {
     }
 
     @Test
+    fun `create with splitter - child with child`() {
+        val tree = LabeledMultiValueTree<String>()
+        tree.add(listOf("child1", "child2"))
+
+        assertEquals(
+            tree<String> {
+                node("child1") {
+                    node("child2")
+                }
+            },
+            tree
+        )
+    }
+
+    @Test
     fun `isLeaf - empty tree`() {
         val tree = LabeledMultiValueTree<String>()
 

@@ -52,6 +52,17 @@ class LabeledMultiValueTreeNode<T>(val name: String, val value: T? = null) {
     }
 
     fun add(
+        path: List<String>,
+        value: T? = null
+    ): LabeledMultiValueTreeNode<T> =
+        if (path.size == 1) {
+            add(path.first(), value)
+        } else {
+            val child = add(path.first(), null)
+            child.add(path.drop(1), value)
+        }
+
+    fun add(
         name: String,
         value: T? = null
     ): LabeledMultiValueTreeNode<T> {
